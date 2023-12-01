@@ -10,7 +10,7 @@ const dialogStyle = {
     maxWidth: '100%',
     maxHeight: '100%',
     boxShadow: "none",
-    overflow: "none"
+    overflow: "hidden"
 }
 const Component = styled(Box)`display:flex;`;
 const Container = styled(Box)`
@@ -28,13 +28,14 @@ const Title = styled(Typography)`
     font-family:inherit;
     margin-bottom:20px;
 `;
-const listStyled = styled(List)` > li {
-    padding:0;
-    margin-top:15px;
-    font-size:20px;
-    line-height:28px;
-    color:#4a4a4a;
-}`;
+// const listStyled = styled(List)`
+//   & > li {
+//     padding:0;
+//     margin-top:15px;
+//     font-size:20px;
+//     line-height:28px;
+//     color:red;
+// }`;
 const onLoginSuccess = (res) => {
     const userInfo = res.credential;
     console.log('login success', jwtDecode(userInfo));
@@ -44,27 +45,27 @@ const onLoginError = (res) => {
 }
 const LoginDialog = () => {
     return (
-        <Box>
-            <Dialog open={true} PaperProps={{ sx: dialogStyle }}>
+        <Dialog open={true} PaperProps={{ sx: dialogStyle }}>
+
                 <Component>
                     <Container>
                         <Title>Use WhatsApp on your computer</Title>
-                        <List>
+                        <List style={{padding:0,marginTop:'15px',fontSize:'20px',linHeight:'28px',color:'green'}}>
                             <ListItem>1. Open WhatsApp on your phone</ListItem>
                             <ListItem>2. Tap Menu or Settings and select Linked Devices</ListItem>
                             <ListItem>3. Tap on Link a device</ListItem>
                             <ListItem>4. Point your phone on this screen to capture the QR code</ListItem>
                         </List>
                     </Container>
-                    <Box styled={{position:'relative'}}>
+                    <Box styled={{ position: 'relative' }}>
                         <QRCode src={qrCodeImage} alt="QR Code" />
-                        <Box style={{position:'absolute', top:'50%', tranform:'translateX(25%)'}}>
+                        <Box style={{ position: 'absolute', top: '50%', tranform: 'translateX(25%)' }}>
                             <GoogleLogin onSuccess={onLoginSuccess} onError={onLoginError} />
                         </Box>
                     </Box>
                 </Component>
-            </Dialog>
-        </Box>
+        </Dialog>
+
     )
 }
 export default LoginDialog;
